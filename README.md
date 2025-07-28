@@ -99,10 +99,6 @@ Navigate to the Stats tab to see:
 
 The app integrates with the CSFloat API to automatically fetch skin data. The API proxy is configured in `vite.config.js` for development.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Roadmap
 
 - [ ] Export data to CSV/Excel
