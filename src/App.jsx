@@ -548,17 +548,15 @@ export default function App() {
   const fetchCsfloatItem = async (listingId) => {
     setCsfloatLoading(true);
     try {
-      // Use proxy in development, CORS proxy in production
+      // Use proxy in development, different CORS proxy in production
       const apiUrl = import.meta.env.DEV 
         ? `/api/csfloat/listings/${listingId}`
-        : `https://api.allorigins.win/get?url=${encodeURIComponent(`https://csfloat.com/api/v1/listings/${listingId}`)}`;
+        : `https://corsproxy.io/?${encodeURIComponent(`https://csfloat.com/api/v1/listings/${listingId}`)}`;
       
       const response = await axios.get(apiUrl);
       
-      // Parse response differently for CORS proxy
-      const item = import.meta.env.DEV 
-        ? response.data 
-        : JSON.parse(response.data.contents);
+      // Parse response - corsproxy.io returns data directly
+      const item = response.data;
       console.log("CSFloat item data:", item);
       
       // Map condition values to abbreviations
@@ -634,17 +632,15 @@ export default function App() {
   const fetchWeeklyDropItem = async (listingId) => {
     setWeeklyDropLoading(true);
     try {
-      // Use proxy in development, CORS proxy in production
+      // Use proxy in development, different CORS proxy in production
       const apiUrl = import.meta.env.DEV 
         ? `/api/csfloat/listings/${listingId}`
-        : `https://api.allorigins.win/get?url=${encodeURIComponent(`https://csfloat.com/api/v1/listings/${listingId}`)}`;
+        : `https://corsproxy.io/?${encodeURIComponent(`https://csfloat.com/api/v1/listings/${listingId}`)}`;
       
       const response = await axios.get(apiUrl);
       
-      // Parse response differently for CORS proxy
-      const item = import.meta.env.DEV 
-        ? response.data 
-        : JSON.parse(response.data.contents);
+      // Parse response - corsproxy.io returns data directly
+      const item = response.data;
       console.log("Weekly drop CSFloat item data:", item);
       
       // Convert price from cents to dollars - this is the amount you received
@@ -652,11 +648,11 @@ export default function App() {
       const netSellPrice = Math.floor(priceInDollars * 0.98 * 100) / 100; // After 2% fee, rounded down to 2 decimals
       
       // Get sell date (when you sold the weekly drop)
-      let sellDate = new Date().toISOString().split('T')[0]; // Default to today
+      let weeklyDropSellDate = new Date().toISOString().split('T')[0]; // Default to today
       
       if (item.state === "sold" && item.sold_at) {
         const soldAtDate = new Date(item.sold_at);
-        sellDate = soldAtDate.toISOString().split('T')[0];
+        weeklyDropSellDate = soldAtDate.toISOString().split('T')[0];
       }
       
       // Format skin name
@@ -666,7 +662,7 @@ export default function App() {
       const payload = {
         amount: netSellPrice,
         source: "weekly_drop",
-        date: sellDate,
+        date: weeklyDropSellDate,
         skinName: formattedSkinName,
         csfloatId: listingId
       };
@@ -687,17 +683,15 @@ export default function App() {
   const fetchOtherFreeSkinItem = async (listingId) => {
     setOtherFreeLoading(true);
     try {
-      // Use proxy in development, CORS proxy in production
+      // Use proxy in development, different CORS proxy in production
       const apiUrl = import.meta.env.DEV 
         ? `/api/csfloat/listings/${listingId}`
-        : `https://api.allorigins.win/get?url=${encodeURIComponent(`https://csfloat.com/api/v1/listings/${listingId}`)}`;
+        : `https://corsproxy.io/?${encodeURIComponent(`https://csfloat.com/api/v1/listings/${listingId}`)}`;
       
       const response = await axios.get(apiUrl);
       
-      // Parse response differently for CORS proxy
-      const item = import.meta.env.DEV 
-        ? response.data 
-        : JSON.parse(response.data.contents);
+      // Parse response - corsproxy.io returns data directly
+      const item = response.data;
       console.log("Other free skin CSFloat item data:", item);
       
       // Convert price from cents to dollars - this is the amount you received
@@ -705,11 +699,11 @@ export default function App() {
       const netSellPrice = Math.floor(priceInDollars * 0.98 * 100) / 100; // After 2% fee, rounded down to 2 decimals
       
       // Get sell date (when you sold the other free skin)
-      let sellDate = new Date().toISOString().split('T')[0]; // Default to today
+      let freeSkinSellDate = new Date().toISOString().split('T')[0]; // Default to today
       
       if (item.state === "sold" && item.sold_at) {
         const soldAtDate = new Date(item.sold_at);
-        sellDate = soldAtDate.toISOString().split('T')[0];
+        freeSkinSellDate = soldAtDate.toISOString().split('T')[0];
       }
       
       // Format skin name
@@ -719,7 +713,7 @@ export default function App() {
       const payload = {
         amount: netSellPrice,
         source: "other_free_skin",
-        date: sellDate,
+        date: freeSkinSellDate,
         skinName: formattedSkinName,
         csfloatId: listingId
       };
