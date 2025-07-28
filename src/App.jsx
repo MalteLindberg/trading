@@ -101,6 +101,22 @@ export default function App() {
   const closeModal = () => setOpen(false);
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const closeDeleteConfirmation = () => setOpenDeleteConfirmation(false);
+  
+  // History popup functions
+  const openHistoryPopup = (type) => {
+    console.log("Opening history popup for type:", type);
+    console.log("Added funds data:", addedFunds);
+    setHistoryType(type);
+    const filteredData = Array.isArray(addedFunds) ? addedFunds.filter(fund => fund.source === type) : [];
+    setHistoryData(filteredData);
+    setHistoryPopupOpen(true);
+  };
+  
+  const closeHistoryPopup = () => {
+    setHistoryPopupOpen(false);
+    setHistoryType("");
+    setHistoryData([]);
+  };
   const [selectedUnsold, setSelectedUnsold] = useState([]);
   const [selectedSold, setSelectedSold] = useState([]);
   const [skinName, setSkinName] = useState("");
@@ -121,6 +137,11 @@ export default function App() {
   const [depositFree, setDepositFree] = useState(false);
   const [depositDate, setDepositDate] = useState(new Date().toISOString().split('T')[0]);
   const [addFundsResult, setAddFundsResult] = useState("");
+
+  // History popup states
+  const [historyPopupOpen, setHistoryPopupOpen] = useState(false);
+  const [historyType, setHistoryType] = useState(""); // "weeklyDrop" or "otherFree"
+  const [historyData, setHistoryData] = useState([]);
 
   const {
     register,
@@ -527,7 +548,7 @@ export default function App() {
   const fetchCsfloatItem = async (listingId) => {
     setCsfloatLoading(true);
     try {
-      const response = await axios.get(`/api/csfloat/listings/${listingId}`);
+      const response = await axios.get(`https://csfloat.com/api/v1/listings/${listingId}`);
       
       const item = response.data;
       console.log("CSFloat item data:", item);
@@ -605,7 +626,7 @@ export default function App() {
   const fetchWeeklyDropItem = async (listingId) => {
     setWeeklyDropLoading(true);
     try {
-      const response = await axios.get(`/api/csfloat/listings/${listingId}`);
+      const response = await axios.get(`https://csfloat.com/api/v1/listings/${listingId}`);
       
       const item = response.data;
       console.log("Weekly drop CSFloat item data:", item);
@@ -650,7 +671,7 @@ export default function App() {
   const fetchOtherFreeSkinItem = async (listingId) => {
     setOtherFreeLoading(true);
     try {
-      const response = await axios.get(`/api/csfloat/listings/${listingId}`);
+      const response = await axios.get(`https://csfloat.com/api/v1/listings/${listingId}`);
       
       const item = response.data;
       console.log("Other free skin CSFloat item data:", item);
@@ -1792,7 +1813,10 @@ export default function App() {
               </div>
 
               {/* Weekly Drop Earnings */}
-              <div className="bg-gradient-to-br from-[#1B1D24] to-[#252830] rounded-lg p-4 border border-green-500 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 transform hover:border-green-400">
+              <div 
+                onClick={() => openHistoryPopup("weekly_drop")}
+                className="bg-gradient-to-br from-[#1B1D24] to-[#252830] rounded-lg p-4 border border-green-500 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 transform hover:border-green-400 cursor-pointer"
+              >
                 <h3 className="text-sm font-semibold mb-2 text-green-400">Weekly Drop Earnings</h3>
                 <div className="text-2xl font-bold text-white">${stats.weeklyDropEarnings}</div>
                 <div className="text-xs text-gray-400 mt-1">
@@ -1801,7 +1825,10 @@ export default function App() {
               </div>
 
               {/* Other Free Skins */}
-              <div className="bg-gradient-to-br from-[#1B1D24] to-[#252830] rounded-lg p-4 border border-purple-500 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 transform hover:border-purple-400">
+              <div 
+                onClick={() => openHistoryPopup("other_free_skin")}
+                className="bg-gradient-to-br from-[#1B1D24] to-[#252830] rounded-lg p-4 border border-purple-500 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 transform hover:border-purple-400 cursor-pointer"
+              >
                 <h3 className="text-sm font-semibold mb-2 text-purple-400">Other Free Skins</h3>
                 <div className="text-2xl font-bold text-white">${stats.otherFreeEarnings}</div>
                 <div className="text-xs text-gray-400 mt-1">
@@ -2181,6 +2208,66 @@ export default function App() {
           </div>
         )}
       </div>
+
+      {/* History Popup */}
+      <Popup nested open={historyPopupOpen} closeOnDocumentClick onClose={closeHistoryPopup}>
+        <div className='p-6 flex flex-col bg-[#1B1D24] shadow-lg items-center gap-4 rounded-lg min-w-[600px] max-w-[800px]'>
+          <h2 className='text-2xl font-extrabold text-white'>
+            {historyType === "weeklyDrop" ? "Weekly Drop History" : "Other Free Skins History"}
+          </h2>
+          
+          <div className="w-full max-h-[500px] overflow-y-auto">
+            {historyData.length === 0 ? (
+              <div className="text-center text-gray-400 py-8">
+                <p>No {historyType === "weeklyDrop" ? "weekly drop" : "other free skin"} sales found.</p>
+                <p className="text-sm mt-2">Start adding funds to see your history here!</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {historyData.map((item, index) => (
+                  <div key={index} className="bg-[#2E323E] rounded-lg p-4 border border-gray-600">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="text-sm text-gray-400">Skin Name:</p>
+                        <p className="text-white font-semibold">{item.skinName || "N/A"}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-400">Amount:</p>
+                        <p className="text-green-400 font-bold text-lg">${item.amount}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-400">Date Added:</p>
+                        <p className="text-white">{item.date || "N/A"}</p>
+                      </div>
+                      {item.floatValue && (
+                        <div>
+                          <p className="text-sm text-gray-400">Float Value:</p>
+                          <p className="text-white">{item.floatValue}</p>
+                        </div>
+                      )}
+                      {item.condition && (
+                        <div>
+                          <p className="text-sm text-gray-400">Condition:</p>
+                          <p className="text-white">{item.condition}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          
+          <div className="flex gap-4 mt-4">
+            <button
+              onClick={closeHistoryPopup}
+              className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg cursor-pointer transition"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </Popup>
     </div>
   );
 }
