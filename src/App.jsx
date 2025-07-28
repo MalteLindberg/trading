@@ -548,7 +548,20 @@ export default function App() {
   const fetchCsfloatItem = async (listingId) => {
     setCsfloatLoading(true);
     try {
-      const response = await axios.get(`https://csfloat.com/api/v1/listings/${listingId}`);
+      // Use proxy in development, direct API in production
+      const apiUrl = import.meta.env.DEV 
+        ? `/api/csfloat/listings/${listingId}`
+        : `https://csfloat.com/api/v1/listings/${listingId}`;
+      
+      // Add headers for production (if needed)
+      const config = import.meta.env.DEV ? {} : {
+        headers: {
+          'Accept': 'application/json',
+          'Origin': 'https://malteLindberg.github.io'
+        }
+      };
+      
+      const response = await axios.get(apiUrl, config);
       
       const item = response.data;
       console.log("CSFloat item data:", item);
@@ -626,7 +639,20 @@ export default function App() {
   const fetchWeeklyDropItem = async (listingId) => {
     setWeeklyDropLoading(true);
     try {
-      const response = await axios.get(`https://csfloat.com/api/v1/listings/${listingId}`);
+      // Use proxy in development, direct API in production
+      const apiUrl = import.meta.env.DEV 
+        ? `/api/csfloat/listings/${listingId}`
+        : `https://csfloat.com/api/v1/listings/${listingId}`;
+      
+      // Add headers for production (if needed)
+      const config = import.meta.env.DEV ? {} : {
+        headers: {
+          'Accept': 'application/json',
+          'Origin': 'https://malteLindberg.github.io'
+        }
+      };
+      
+      const response = await axios.get(apiUrl, config);
       
       const item = response.data;
       console.log("Weekly drop CSFloat item data:", item);
@@ -671,7 +697,20 @@ export default function App() {
   const fetchOtherFreeSkinItem = async (listingId) => {
     setOtherFreeLoading(true);
     try {
-      const response = await axios.get(`https://csfloat.com/api/v1/listings/${listingId}`);
+      // Use proxy in development, direct API in production
+      const apiUrl = import.meta.env.DEV 
+        ? `/api/csfloat/listings/${listingId}`
+        : `https://csfloat.com/api/v1/listings/${listingId}`;
+      
+      // Add headers for production (if needed)
+      const config = import.meta.env.DEV ? {} : {
+        headers: {
+          'Accept': 'application/json',
+          'Origin': 'https://malteLindberg.github.io'
+        }
+      };
+      
+      const response = await axios.get(apiUrl, config);
       
       const item = response.data;
       console.log("Other free skin CSFloat item data:", item);
