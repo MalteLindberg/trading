@@ -833,18 +833,18 @@ export default function App() {
   };
 
   return (
-    <div className="mainContainer min-h-screen w-full bg-[#15171C] flex flex-col gap-20">
+    <div className="mainContainer min-h-screen w-full bg-[#15171C] flex flex-col gap-8 sm:gap-12 lg:gap-20">
       <Popup nested open={open} closeOnDocumentClick onClose={closeModal}>
-          <div className='p-6 flex flex-col bg-[#1B1D24] shadow-lg text-center items-center gap-4 rounded-lg min-w-[500px]'>
-            <p className='text-2xl font-extrabold text-white'>{selectedTrade?.skinName}</p>
+          <div className='p-4 sm:p-6 flex flex-col bg-[#1B1D24] shadow-lg text-center items-center gap-4 rounded-lg min-w-[95vw] sm:min-w-[500px] max-w-[95vw] sm:max-w-none'>
+            <p className='text-xl sm:text-2xl font-extrabold text-white break-words'>{selectedTrade?.skinName}</p>
             
             {/* Tab Navigation */}
-            <div className="flex mb-4 bg-[#2E323E] rounded-lg p-1 w-full">
+            <div className="flex flex-col sm:flex-row mb-4 bg-[#2E323E] rounded-lg p-1 w-full gap-1 sm:gap-0">
               {(!selectedTrade?.sellStatus) && (
                 <button
                   type="button"
                   onClick={() => setPopupActiveTab("markAsSold")}
-                  className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition ${
+                  className={`flex-1 py-3 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition min-h-[44px] ${
                     popupActiveTab === "markAsSold"
                       ? "bg-[#1B1D24] text-white"
                       : "text-gray-300 hover:text-white"
@@ -856,7 +856,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setPopupActiveTab("changeInfo")}
-                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition ${
+                className={`flex-1 py-3 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition min-h-[44px] ${
                   popupActiveTab === "changeInfo"
                     ? "bg-[#1B1D24] text-white"
                     : "text-gray-300 hover:text-white"
@@ -867,7 +867,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setPopupActiveTab("viewInfo")}
-                className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition ${
+                className={`flex-1 py-3 px-2 sm:px-4 rounded-md text-xs sm:text-sm font-medium transition min-h-[44px] ${
                   popupActiveTab === "viewInfo"
                     ? "bg-[#1B1D24] text-white"
                     : "text-gray-300 hover:text-white"
@@ -1051,21 +1051,21 @@ export default function App() {
             </Popup>
           </div>
       </Popup>
-      <nav className="flex justify-center">
-        <div className="inline-flex gap-3 bg-[#1B1D24] py-4 px-12 rounded-b-lg">
+      <nav className="flex justify-center px-4">
+        <div className="inline-flex flex-wrap justify-center gap-2 sm:gap-3 bg-[#1B1D24] py-4 px-4 sm:px-12 rounded-b-lg w-full max-w-4xl">
           <button 
             onClick={() => setActiveView("database")} 
-            className={`font-bold py-2 px-4 rounded-lg cursor-pointer transition
+            className={`font-bold py-3 px-4 sm:px-6 rounded-lg cursor-pointer transition min-h-[44px] flex-1 min-w-0 sm:flex-initial text-sm sm:text-base
               ${activeView === "database" 
                 ? "bg-[#2E323E] text-white" 
                 : "text-gray-300 hover:bg-[#2E323E] hover:text-white"
               }`}
           >
-            TRADE DATABASE
+            DATABASE
           </button>
           <button 
             onClick={() => setActiveView("stats")} 
-            className={`font-bold py-2 px-4 rounded-lg cursor-pointer transition
+            className={`font-bold py-3 px-4 sm:px-6 rounded-lg cursor-pointer transition min-h-[44px] flex-1 min-w-0 sm:flex-initial text-sm sm:text-base
               ${activeView === "stats" 
                 ? "bg-[#2E323E] text-white" 
                 : "text-gray-300 hover:bg-[#2E323E] hover:text-white"
@@ -1075,7 +1075,7 @@ export default function App() {
           </button>
           <button 
             onClick={() => setActiveView("newItem")} 
-            className={`font-bold py-2 px-4 rounded-lg cursor-pointer transition
+            className={`font-bold py-3 px-4 sm:px-6 rounded-lg cursor-pointer transition min-h-[44px] flex-1 min-w-0 sm:flex-initial text-sm sm:text-base
               ${activeView === "newItem" 
                 ? "bg-[#2E323E] text-white" 
                 : "text-gray-300 hover:bg-[#2E323E] hover:text-white"
@@ -1085,7 +1085,7 @@ export default function App() {
           </button>
           <button
             onClick={() => setActiveView("addFunds")}
-            className={`font-bold py-2 px-4 rounded-lg cursor-pointer transition
+            className={`font-bold py-3 px-4 sm:px-6 rounded-lg cursor-pointer transition min-h-[44px] flex-1 min-w-0 sm:flex-initial text-sm sm:text-base
               ${activeView === "addFunds"
                 ? "bg-[#2E323E] text-white"
                 : "text-gray-300 hover:bg-[#2E323E] hover:text-white"
@@ -1096,10 +1096,10 @@ export default function App() {
         </div>
       </nav>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center px-4">
         {activeView === "newItem" && (
-          <div className="w-[400px] bg-[#1B1D24] p-6 rounded-lg shadow-md">
-            <h1 className="text-2xl font-bold mb-4">Add New Skin</h1>
+          <div className="w-full max-w-md bg-[#1B1D24] p-4 sm:p-6 rounded-lg shadow-md">
+            <h1 className="text-xl sm:text-2xl font-bold mb-4">Add New Skin</h1>
             
             {/* Tab Navigation */}
             <div className="flex mb-6 bg-[#2E323E] rounded-lg p-1">
@@ -1135,7 +1135,7 @@ export default function App() {
                   onChange={(e) => setSkinName(e.target.value)}
                   onSelect={(selectedSkin) => setSkinName(selectedSkin)}
                   placeholder="Search for CS2 skin..."
-                  className="w-full py-2 px-3 rounded-lg mb-3 bg-[#c1ceff0a] outline-none"
+                  className="w-full py-3 px-4 rounded-lg mb-3 bg-[#c1ceff0a] outline-none text-base"
                   register={register}
                   name="skinName"
                   error={errors.skinName}
@@ -1148,18 +1148,17 @@ export default function App() {
                       message: "Enter a valid float value"
                     }
                   })}
-                  className="w-full py-2 px-3 rounded-lg mb-3 bg-[#c1ceff0a] outline-none"
+                  className="w-full py-3 px-4 rounded-lg mb-3 bg-[#c1ceff0a] outline-none text-base"
                   placeholder="Float value (e.g., 0.123456)"
                 />
                 {errors.floatValue && <p className="text-red-500 text-sm">{errors.floatValue.message || "Float is required"}</p>}
-                <div className="flex justify-around mb-4">
-                  {["FN", "MW", "FT", "WW", "BS"].map((condition, index) => (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {["FN", "MW", "FT", "WW", "BS"].map((condition) => (
                     <button
                       key={condition}
                       type="button"
                       onClick={() => setValue("condition", condition)}
-                      className={`flex-1 py-2 rounded-lg text-sm transition font-semibold
-                        ${index === 0 ? "mr-1.5" : index === 4 ? "ml-1.5" : "mx-1.5"}
+                      className={`flex-1 min-w-[60px] py-3 px-2 rounded-lg text-sm transition font-semibold min-h-[44px]
                         ${
                           watch("condition") === condition
                             ? "bg-[#2E323E] text-white cursor-pointer"
@@ -1203,23 +1202,23 @@ export default function App() {
                     </button>
                   ))}
                 </div>
-                <div className='flex flex-row gap-3'>
-                  <div className="relative">
+                <div className='flex flex-col sm:flex-row gap-3'>
+                  <div className="relative flex-1">
                     <input
                       type="text"
                       {...register("buyPrice", { required: true })}
-                      className="px-4 w-full py-2 pr-8 rounded-lg text-sm outline-none bg-[#c1ceff0a]"
+                      className="px-4 w-full py-3 pr-8 rounded-lg text-base outline-none bg-[#c1ceff0a]"
                       placeholder="Buy price"
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">$</span>
                     {errors.buyPrice && <span className="text-red-500 text-sm">This field is required</span>}
                   </div>
 
-                  <div className="relative">
+                  <div className="relative flex-1">
                     <input
                       type="text"
                       {...register("expectedSellPrice", { required: true })}
-                      className="px-4 w-full py-2 pr-8 rounded-lg text-sm outline-none bg-[#c1ceff0a]"
+                      className="px-4 w-full py-3 pr-8 rounded-lg text-base outline-none bg-[#c1ceff0a]"
                       placeholder="Expected sell price"
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">$</span>
@@ -1229,11 +1228,11 @@ export default function App() {
 
                 <input
                   {...register("buyDate")}
-                  className="w-full py-2 px-3 rounded-lg mt-3 mb-4 bg-[#c1ceff0a] outline-none"
+                  className="w-full py-3 px-4 rounded-lg mt-3 mb-4 bg-[#c1ceff0a] outline-none text-base"
                   type="date"
                 />
 
-                <button type="submit" className="w-full bg-green-500 hover:bg-green-400 text-white py-2 rounded-lg cursor-pointer">
+                <button type="submit" className="w-full bg-green-500 hover:bg-green-400 text-white py-3 rounded-lg cursor-pointer min-h-[44px] font-semibold">
                   Submit
                 </button>
               </form>
@@ -1250,7 +1249,7 @@ export default function App() {
                     type="text"
                     value={csfloatId}
                     onChange={(e) => setCsfloatId(e.target.value)}
-                    className="w-full py-2 px-3 rounded-lg bg-[#c1ceff0a] outline-none"
+                    className="w-full py-3 px-4 rounded-lg bg-[#c1ceff0a] outline-none text-base"
                     placeholder="Enter CSFloat listing ID (e.g., 123456)"
                   />
                   <p className="text-xs text-gray-400 mt-1">
@@ -1267,7 +1266,7 @@ export default function App() {
                       type="text"
                       value={csfloatExpectedPrice}
                       onChange={(e) => setCsfloatExpectedPrice(e.target.value)}
-                      className="px-4 w-full py-2 pr-8 rounded-lg text-sm outline-none bg-[#c1ceff0a]"
+                      className="px-4 w-full py-3 pr-8 rounded-lg text-base outline-none bg-[#c1ceff0a]"
                       placeholder="Expected sell price"
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">$</span>
@@ -1280,7 +1279,7 @@ export default function App() {
                 <button
                   onClick={() => fetchCsfloatItem(csfloatId)}
                   disabled={!csfloatId || csfloatLoading}
-                  className={`w-full py-2 rounded-lg font-medium transition ${
+                  className={`w-full py-3 rounded-lg font-medium transition min-h-[44px] ${
                     !csfloatId || csfloatLoading
                       ? "bg-gray-600 text-gray-400 cursor-not-allowed"
                       : "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
@@ -1297,8 +1296,8 @@ export default function App() {
 
         {activeView === "database" && (
           <div className="w-full max-w-[1330px] mx-auto px-4 pb-8">
-            <div className="bg-[#1B1D24] p-6 rounded-lg shadow-md mb-6">
-              <h1 className="text-2xl font-bold mb-4 text-center">Trade Database</h1>
+            <div className="bg-[#1B1D24] p-4 sm:p-6 rounded-lg shadow-md mb-6">
+              <h1 className="text-xl sm:text-2xl font-bold mb-4 text-center">Trade Database</h1>
               <div className="flex justify-center">
                 <input
                   type="text"
@@ -1339,11 +1338,13 @@ export default function App() {
                     onSelectedRowsChange={({ selectedRows }) => setSelectedUnsold(selectedRows)}
                     theme="dark"
                     pagination
-                    paginationPerPage={30}
-                    paginationRowsPerPageOptions={[10, 20, 30, 50, 100]}
+                    paginationPerPage={20}
+                    paginationRowsPerPageOptions={[10, 20, 30]}
                     highlightOnHover
                     pointerOnHover
                     dense
+                    responsive
+                    wrap
                     customStyles={{
                       table: {
                         style: {
@@ -1447,11 +1448,13 @@ export default function App() {
                     onSelectedRowsChange={({ selectedRows }) => setSelectedSold(selectedRows)}
                     theme="dark"
                     pagination
-                    paginationPerPage={30}
-                    paginationRowsPerPageOptions={[10, 20, 30, 50, 100]}
+                    paginationPerPage={20}
+                    paginationRowsPerPageOptions={[10, 20, 30]}
                     highlightOnHover
                     pointerOnHover
                     dense
+                    responsive
+                    wrap
                     customStyles={{
                       table: {
                         style: {
@@ -1538,15 +1541,15 @@ export default function App() {
         )}
 
         {activeView === "addFunds" && (
-          <div className="w-[400px] bg-[#1B1D24] p-6 rounded-lg shadow-md">
-            <h1 className="text-2xl font-bold mb-4">Add Funds</h1>
+          <div className="w-full max-w-md bg-[#1B1D24] p-4 sm:p-6 rounded-lg shadow-md mx-4">
+            <h1 className="text-xl sm:text-2xl font-bold mb-4">Add Funds</h1>
             
             {/* Tab Navigation */}
-            <div className="flex mb-6 bg-[#2E323E] rounded-lg p-1">
+            <div className="flex flex-col sm:flex-row mb-6 bg-[#2E323E] rounded-lg p-1 gap-1 sm:gap-0">
               <button
                 type="button"
                 onClick={() => setAddFundsTab("weeklyDrop")}
-                className={`flex-1 py-2 px-2 rounded-md text-xs font-medium transition ${
+                className={`flex-1 py-3 px-2 rounded-md text-xs font-medium transition min-h-[44px] ${
                   addFundsTab === "weeklyDrop"
                     ? "bg-[#1B1D24] text-white"
                     : "text-gray-300 hover:text-white"
@@ -1557,7 +1560,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setAddFundsTab("otherFreeSkins")}
-                className={`flex-1 py-2 px-2 rounded-md text-xs font-medium transition ${
+                className={`flex-1 py-3 px-2 rounded-md text-xs font-medium transition min-h-[44px] ${
                   addFundsTab === "otherFreeSkins"
                     ? "bg-[#1B1D24] text-white"
                     : "text-gray-300 hover:text-white"
@@ -1568,7 +1571,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setAddFundsTab("deposit")}
-                className={`flex-1 py-2 px-2 rounded-md text-xs font-medium transition ${
+                className={`flex-1 py-3 px-2 rounded-md text-xs font-medium transition min-h-[44px] ${
                   addFundsTab === "deposit"
                     ? "bg-[#1B1D24] text-white"
                     : "text-gray-300 hover:text-white"
@@ -1589,7 +1592,7 @@ export default function App() {
                     type="text"
                     value={weeklyDropCsfloatId}
                     onChange={(e) => setWeeklyDropCsfloatId(e.target.value)}
-                    className="w-full py-2 px-3 rounded-lg bg-[#c1ceff0a] outline-none"
+                    className="w-full py-3 px-4 rounded-lg bg-[#c1ceff0a] outline-none text-base"
                     placeholder="Enter CSFloat listing ID (e.g., 123456)"
                   />
                   <p className="text-xs text-gray-400 mt-1">
@@ -1600,7 +1603,7 @@ export default function App() {
                 <button
                   onClick={() => fetchWeeklyDropItem(weeklyDropCsfloatId)}
                   disabled={!weeklyDropCsfloatId || weeklyDropLoading}
-                  className={`w-full py-2 rounded-lg font-medium transition ${
+                  className={`w-full py-3 rounded-lg font-medium transition min-h-[44px] ${
                     !weeklyDropCsfloatId || weeklyDropLoading
                       ? "bg-gray-600 text-gray-400 cursor-not-allowed"
                       : "bg-green-600 hover:bg-green-700 text-white cursor-pointer"
@@ -1622,7 +1625,7 @@ export default function App() {
                     type="text"
                     value={otherFreeCsfloatId}
                     onChange={(e) => setOtherFreeCsfloatId(e.target.value)}
-                    className="w-full py-2 px-3 rounded-lg bg-[#c1ceff0a] outline-none"
+                    className="w-full py-3 px-4 rounded-lg bg-[#c1ceff0a] outline-none text-base"
                     placeholder="Enter CSFloat listing ID (e.g., 123456)"
                   />
                   <p className="text-xs text-gray-400 mt-1">
@@ -1633,7 +1636,7 @@ export default function App() {
                 <button
                   onClick={() => fetchOtherFreeSkinItem(otherFreeCsfloatId)}
                   disabled={!otherFreeCsfloatId || otherFreeLoading}
-                  className={`w-full py-2 rounded-lg font-medium transition ${
+                  className={`w-full py-3 rounded-lg font-medium transition min-h-[44px] ${
                     !otherFreeCsfloatId || otherFreeLoading
                       ? "bg-gray-600 text-gray-400 cursor-not-allowed"
                       : "bg-purple-600 hover:bg-purple-700 text-white cursor-pointer"
@@ -1656,7 +1659,7 @@ export default function App() {
                       type="text"
                       value={depositAmount}
                       onChange={(e) => setDepositAmount(e.target.value)}
-                      className="px-4 w-full py-2 pr-8 rounded-lg text-sm outline-none bg-[#c1ceff0a]"
+                      className="px-4 w-full py-3 pr-8 rounded-lg text-base outline-none bg-[#c1ceff0a]"
                       placeholder="Amount deposited"
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">$</span>
@@ -1671,7 +1674,7 @@ export default function App() {
                     type="date"
                     value={depositDate}
                     onChange={(e) => setDepositDate(e.target.value)}
-                    className="w-full py-2 px-3 rounded-lg bg-[#c1ceff0a] outline-none"
+                    className="w-full py-3 px-4 rounded-lg bg-[#c1ceff0a] outline-none text-base"
                   />
                 </div>
 
@@ -1681,7 +1684,7 @@ export default function App() {
                       type="checkbox"
                       checked={depositFree}
                       onChange={(e) => setDepositFree(e.target.checked)}
-                      className="w-4 h-4 text-green-600 bg-[#2E323E] border-gray-600 rounded focus:ring-green-500 focus:ring-2"
+                      className="w-5 h-5 text-green-600 bg-[#2E323E] border-gray-600 rounded focus:ring-green-500 focus:ring-2"
                     />
                     <span className="text-sm text-gray-300">
                       This was a free deposit (didn't cost me money)
@@ -1695,7 +1698,7 @@ export default function App() {
                 <button
                   onClick={submitDeposit}
                   disabled={!depositAmount}
-                  className={`w-full py-2 rounded-lg font-medium transition ${
+                  className={`w-full py-3 rounded-lg font-medium transition min-h-[44px] ${
                     !depositAmount
                       ? "bg-gray-600 text-gray-400 cursor-not-allowed"
                       : "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
@@ -1712,27 +1715,27 @@ export default function App() {
 
         {activeView === "stats" && (
           <div className="w-full max-w-[1400px] mx-auto px-4 pb-8">
-            <div className="bg-[#1B1D24] p-6 rounded-lg shadow-md mb-6">
-              <h1 className="text-2xl font-bold mb-2 text-center">Trading Statistics</h1>
-              <p className="text-center text-gray-400">Your comprehensive trading performance overview</p>
+            <div className="bg-[#1B1D24] p-4 sm:p-6 rounded-lg shadow-md mb-6">
+              <h1 className="text-xl sm:text-2xl font-bold mb-2 text-center">Trading Statistics</h1>
+              <p className="text-center text-gray-400 text-sm sm:text-base">Your comprehensive trading performance overview</p>
             </div>
 
             {/* Bento Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-auto">
               
               {/* Total Profit - Large Card */}
-              <div className="lg:col-span-2 lg:row-span-2 bg-gradient-to-br from-green-600 via-green-700 to-green-800 rounded-lg p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] transform cursor-pointer">
-                <h3 className="text-lg font-semibold mb-2">Total Profit</h3>
-                <div className="text-4xl font-bold mb-4">${stats.totalProfit}</div>
-                <div className="text-sm opacity-90 mb-4">
+              <div className="sm:col-span-2 lg:col-span-2 lg:row-span-2 bg-gradient-to-br from-green-600 via-green-700 to-green-800 rounded-lg p-4 sm:p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] transform cursor-pointer">
+                <h3 className="text-base sm:text-lg font-semibold mb-2">Total Profit</h3>
+                <div className="text-2xl sm:text-4xl font-bold mb-4">${stats.totalProfit}</div>
+                <div className="text-xs sm:text-sm opacity-90 mb-4">
                   <p>Revenue: ${stats.totalRevenue}</p>
                   <p>Investment: ${stats.totalInvestment}</p>
                   <p>Margin: {stats.profitMargin}%</p>
                 </div>
                 {/* Beautiful Profit Over Time Chart */}
-                <div className="h-32">
+                <div className="h-24 sm:h-32">
                   <div className="text-xs mb-2">Total Profit Over Time</div>
-                  <div className="h-24">
+                  <div className="h-16 sm:h-24">
                     <ResponsiveLine
                       data={prepareProfitOverTimeData()}
                       margin={{ top: 5, right: 5, bottom: 20, left: 30 }}
@@ -2229,12 +2232,12 @@ export default function App() {
 
       {/* History Popup */}
       <Popup nested open={historyPopupOpen} closeOnDocumentClick onClose={closeHistoryPopup}>
-        <div className='p-6 flex flex-col bg-[#1B1D24] shadow-lg items-center gap-4 rounded-lg min-w-[600px] max-w-[800px]'>
-          <h2 className='text-2xl font-extrabold text-white'>
+        <div className='p-4 sm:p-6 flex flex-col bg-[#1B1D24] shadow-lg items-center gap-4 rounded-lg min-w-[95vw] sm:min-w-[600px] max-w-[95vw] sm:max-w-[800px]'>
+          <h2 className='text-xl sm:text-2xl font-extrabold text-white text-center'>
             {historyType === "weeklyDrop" ? "Weekly Drop History" : "Other Free Skins History"}
           </h2>
           
-          <div className="w-full max-h-[500px] overflow-y-auto">
+          <div className="w-full max-h-[70vh] sm:max-h-[500px] overflow-y-auto">
             {historyData.length === 0 ? (
               <div className="text-center text-gray-400 py-8">
                 <p>No {historyType === "weeklyDrop" ? "weekly drop" : "other free skin"} sales found.</p>
@@ -2243,11 +2246,11 @@ export default function App() {
             ) : (
               <div className="space-y-3">
                 {historyData.map((item, index) => (
-                  <div key={index} className="bg-[#2E323E] rounded-lg p-4 border border-gray-600">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
+                  <div key={index} className="bg-[#2E323E] rounded-lg p-3 sm:p-4 border border-gray-600">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
+                      <div className="sm:col-span-2">
                         <p className="text-sm text-gray-400">Skin Name:</p>
-                        <p className="text-white font-semibold">{item.skinName || "N/A"}</p>
+                        <p className="text-white font-semibold break-words">{item.skinName || "N/A"}</p>
                       </div>
                       <div>
                         <p className="text-sm text-gray-400">Amount:</p>
