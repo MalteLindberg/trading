@@ -1,8 +1,17 @@
 {
-  "name": "tradingcalculator",
-  "private": true,
-  "version": "0.0.0",
+  "name": "trading",
+  "private": false,
+  "version": "1.0.0",
+  "description": "A comprehensive CS2 trading calculator with beautiful charts and statistics",
   "type": "module",
+  "homepage": "https://github.com/MalteLindberg/trading",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MalteLindberg/trading.git"
+  },
+  "keywords": ["cs2", "trading", "calculator", "counter-strike", "skins", "react", "vite"],
+  "author": "Your Name",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
