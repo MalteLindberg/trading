@@ -880,9 +880,9 @@ export default function App() {
             {/* Mark as Sold Tab */}
             {popupActiveTab === "markAsSold" && !selectedTrade?.sellStatus && (
               <div className="w-full">
-                <div className='flex flex-row gap-4 mb-4 text-gray-300'>
-                  <p className='text-lg font-bold'>Buy Price: <span className='font-normal'>${selectedTrade?.buyPrice}</span></p>
-                  <p className='text-lg font-bold'>Expected Sell Price: <span className='font-normal'>${selectedTrade?.expectedSellPrice}</span></p>
+                <div className='flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4 text-gray-300'>
+                  <p className='text-base sm:text-lg font-bold'>Buy Price: <span className='font-normal'>${selectedTrade?.buyPrice}</span></p>
+                  <p className='text-base sm:text-lg font-bold'>Expected Sell Price: <span className='font-normal'>${selectedTrade?.expectedSellPrice}</span></p>
                 </div>
                 <div className="mb-4">
                   <label className="block mb-2 font-medium text-gray-300">Actual Sell Price:</label>
@@ -890,7 +890,7 @@ export default function App() {
                     type="number"
                     value={actualSellPrice}
                     onChange={(e) => setActualSellPrice(e.target.value)}
-                    className="w-full px-3 py-2 border rounded-lg bg-[#2E323E] text-white border-gray-600"
+                    className="w-full px-3 py-3 border rounded-lg bg-[#2E323E] text-white border-gray-600 text-base"
                   />
                 </div>
                 <div className="mb-4">
@@ -899,10 +899,10 @@ export default function App() {
                     type="date"
                     value={sellDate || ""}
                     onChange={(e) => setSellDate(e.target.value)}
-                    className="w-full px-3 py-2 border rounded-lg bg-[#2E323E] text-white border-gray-600"
+                    className="w-full px-3 py-3 border rounded-lg bg-[#2E323E] text-white border-gray-600 text-base"
                   />
                 </div>
-                <div className='flex flex-row gap-4 justify-center'>
+                <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center'>
                   <button
                     onClick={async () => {
                       try {
@@ -919,13 +919,13 @@ export default function App() {
                         alert("Failed to update trade.");
                       }
                     }}
-                    className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg cursor-pointer transition"
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg cursor-pointer transition min-h-[44px] w-full sm:w-auto"
                   >
                     Confirm Sale
                   </button>
                   <button
                     onClick={() => setOpenDeleteConfirmation(true)}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg cursor-pointer transition"
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg cursor-pointer transition min-h-[44px] w-full sm:w-auto"
                   >
                     Delete Item
                   </button>
@@ -940,7 +940,7 @@ export default function App() {
                 <div className="flex justify-center">
                   <button
                     onClick={() => setOpenDeleteConfirmation(true)}
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg cursor-pointer transition"
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg cursor-pointer transition min-h-[44px] w-full sm:w-auto"
                   >
                     Delete Item
                   </button>
@@ -951,7 +951,7 @@ export default function App() {
             {/* View Information Tab */}
             {popupActiveTab === "viewInfo" && (
               <div className="w-full text-left">
-                <div className="grid grid-cols-2 gap-4 text-gray-300">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-gray-300">
                   <div>
                     <p className="font-bold">Buy Price:</p>
                     <p className="text-white">${selectedTrade?.buyPrice}</p>
@@ -1008,7 +1008,7 @@ export default function App() {
                   <div className="flex justify-center mt-4">
                     <button
                       onClick={() => setOpenDeleteConfirmation(true)}
-                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg cursor-pointer transition"
+                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg cursor-pointer transition min-h-[44px] w-full sm:w-auto"
                     >
                       Delete Item
                     </button>
@@ -1018,10 +1018,10 @@ export default function App() {
             )}
              
             <Popup nested open={openDeleteConfirmation} closeOnDocumentClick onClose={closeDeleteConfirmation}>
-              <div className='p-6 flex flex-col bg-[#1B1D24] shadow-lg text-center items-center gap-4 rounded-lg'>
-                <p className='text-2xl font-extrabold text-white'>Are you sure you want to delete this trade?</p>
-                <p className='text-lg font-bold text-gray-300'>Skin: {selectedTrade?.skinName}</p>
-                <div className='flex flex-row gap-4'>
+              <div className='p-4 sm:p-6 flex flex-col bg-[#1B1D24] shadow-lg text-center items-center gap-4 rounded-lg min-w-[95vw] sm:min-w-auto max-w-[95vw] sm:max-w-none'>
+                <p className='text-xl sm:text-2xl font-extrabold text-white'>Are you sure you want to delete this trade?</p>
+                <p className='text-base sm:text-lg font-bold text-gray-300 break-words'>Skin: {selectedTrade?.skinName}</p>
+                <div className='flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto'>
                   <button
                     onClick={async () => {
                       try {
@@ -1036,13 +1036,13 @@ export default function App() {
                         alert("Failed to delete trade.");
                       }
                     }}
-                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg cursor-pointer transition"
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg cursor-pointer transition min-h-[44px] w-full sm:w-auto"
                   >
                     Yes, Delete
                   </button>
                   <button
                     onClick={closeDeleteConfirmation}
-                    className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg cursor-pointer transition"
+                    className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg cursor-pointer transition min-h-[44px] w-full sm:w-auto"
                   >
                     Cancel
                   </button>
@@ -1304,7 +1304,7 @@ export default function App() {
                   placeholder="Search by skin name or buy date..."
                   value={filterText}
                   onChange={e => setFilterText(e.target.value)}
-                  className="px-4 py-2 rounded-lg w-full max-w-md bg-[#c1ceff0a] outline-none"
+                  className="px-4 py-3 rounded-lg w-full max-w-md bg-[#c1ceff0a] outline-none text-base"
                 />
               </div>
             </div>
@@ -1312,7 +1312,7 @@ export default function App() {
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
               {/* Unsold Items */}
               <div className="bg-[#1B1D24] rounded-lg shadow-md p-4">
-                <h2 className="text-xl font-semibold mb-4 text-green-400 flex items-center">
+                <h2 className="text-lg sm:text-xl font-semibold mb-4 text-green-400 flex items-center">
                   <span className="mr-2">🟩</span>
                   Unsold Items ({unsoldTrades.length})
                 </h2>
@@ -1429,7 +1429,7 @@ export default function App() {
 
               {/* Sold Items */}
               <div className="bg-[#1B1D24] rounded-lg shadow-md p-4">
-                <h2 className="text-xl font-semibold mb-4 text-blue-400 flex items-center">
+                <h2 className="text-lg sm:text-xl font-semibold mb-4 text-blue-400 flex items-center">
                   <span className="mr-2">💼</span>
                   Sold Items ({soldTrades.length})
                 </h2>
@@ -1721,10 +1721,10 @@ export default function App() {
             </div>
 
             {/* Bento Grid Layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 auto-rows-auto">
               
               {/* Total Profit - Large Card */}
-              <div className="sm:col-span-2 lg:col-span-2 lg:row-span-2 bg-gradient-to-br from-green-600 via-green-700 to-green-800 rounded-lg p-4 sm:p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] transform cursor-pointer">
+              <div className="md:col-span-2 xl:col-span-2 xl:row-span-2 bg-gradient-to-br from-green-600 via-green-700 to-green-800 rounded-lg p-4 sm:p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] transform cursor-pointer">
                 <h3 className="text-base sm:text-lg font-semibold mb-2">Total Profit</h3>
                 <div className="text-2xl sm:text-4xl font-bold mb-4">${stats.totalProfit}</div>
                 <div className="text-xs sm:text-sm opacity-90 mb-4">
@@ -1876,7 +1876,7 @@ export default function App() {
               </div>
 
               {/* Beautiful Funds Over Time Chart */}
-              <div className="lg:col-span-2 bg-gradient-to-br from-[#1B1D24] to-[#252830] rounded-lg p-4 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="md:col-span-2 xl:col-span-2 bg-gradient-to-br from-[#1B1D24] to-[#252830] rounded-lg p-4 shadow-lg hover:shadow-xl transition-all duration-300">
                 <h3 className="text-lg font-semibold mb-4 text-white">Total Funds Added Over Time</h3>
                 <div className="h-48">
                   <ResponsiveLine
@@ -2053,7 +2053,7 @@ export default function App() {
               </div>
 
               {/* Funds Distribution Pie Chart */}
-              <div className="lg:col-span-2 bg-gradient-to-br from-[#1B1D24] to-[#252830] rounded-lg p-4 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="md:col-span-2 xl:col-span-2 bg-gradient-to-br from-[#1B1D24] to-[#252830] rounded-lg p-4 shadow-lg hover:shadow-xl transition-all duration-300">
                 <h3 className="text-lg font-semibold mb-4 text-white">Funds Distribution</h3>
                 <div className="h-48">
                   <ResponsivePie
@@ -2115,7 +2115,7 @@ export default function App() {
               </div>
 
               {/* Monthly Profit Bar Chart */}
-              <div className="lg:col-span-2 bg-gradient-to-br from-[#1B1D24] to-[#252830] rounded-lg p-4 shadow-lg hover:shadow-xl transition-all duration-300">
+              <div className="md:col-span-2 xl:col-span-2 bg-gradient-to-br from-[#1B1D24] to-[#252830] rounded-lg p-4 shadow-lg hover:shadow-xl transition-all duration-300">
                 <h3 className="text-lg font-semibold mb-4 text-white">Monthly Profit Overview</h3>
                 <div className="h-48">
                   <ResponsiveBar
