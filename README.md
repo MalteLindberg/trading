@@ -53,7 +53,7 @@ A comprehensive web application for tracking Counter-Strike 2 (CS2) skin trading
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/cs2-trading-calculator.git
+git clone https://github.com/MalteLindberg/trading.git
 cd cs2-trading-calculator
 ```
 

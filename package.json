@@ -10,7 +10,7 @@
     "url": "git+https://github.com/MalteLindberg/trading.git"
   },
   "keywords": ["cs2", "trading", "calculator", "counter-strike", "skins", "react", "vite"],
-  "author": "Your Name",
+  "author": "Malte Lindberg",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
