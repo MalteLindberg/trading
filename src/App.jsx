@@ -62,7 +62,7 @@ const SkinAutocomplete = ({ value, onChange, onSelect, placeholder, className, r
   return (
     <div className="relative">
       <input
-        {...register(name, { required: true })}
+        {...register(name, { required: false })}
         value={value}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
